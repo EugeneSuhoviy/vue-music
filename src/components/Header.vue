@@ -15,8 +15,8 @@
                 <ul class="flex flex-row mt-1">
                     <li>
                         <router-link class="px-2 text-white" :to="{ name: 'about' }"
-                            >About</router-link
-                        >
+                            >About
+                        </router-link>
                     </li>
                     <!-- Navigation Links -->
                     <li v-if="!userStore.userLoggedIn">
@@ -27,13 +27,20 @@
                     <template v-else>
                         <li>
                             <router-link class="px-2 text-white" :to="{ name: 'manage' }"
-                                >Manage</router-link
-                            >
+                                >Manage
+                            </router-link>
                         </li>
                         <li>
                             <a class="px-2 text-white" href="#" @click.prevent="signOut">Logout</a>
                         </li>
                     </template>
+                </ul>
+                <ul class="ml-auto">
+                    <li>
+                        <a class="px-2 text-white" href="#" @click.prevent="changeLocale">
+                            {{ currentLocale }}
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -47,7 +54,10 @@ import useUserStore from '@/stores/user';
 export default {
     name: 'AppHeader',
     computed: {
-        ...mapStores(useModalStore, useUserStore)
+        ...mapStores(useModalStore, useUserStore),
+        currentLocale() {
+            return this.$i18n.locale === 'ua' ? 'Ukrainian' : 'English';
+        }
     },
     methods: {
         toggleAuthModal() {
@@ -60,6 +70,9 @@ export default {
             if (this.$router.meta.requiresAuth) {
                 this.$router.push({ name: 'home' });
             }
+        },
+        changeLocale() {
+            this.$i18n.locale = this.$i18n.locale === 'ua' ? 'en' : 'ua';
         }
     }
 };

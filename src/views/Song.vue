@@ -19,6 +19,7 @@
                     <!-- Song Info -->
                     <div class="text-3xl font-bold">{{ song.modified_name }}</div>
                     <div>{{ song.genre }}</div>
+                    <div class="song-price">{{ $n(1, 'currency', 'ja') }}</div>
                 </div>
             </div>
         </section>
@@ -27,7 +28,11 @@
             <div class="bg-white rounded border border-gray-200 relative flex flex-col">
                 <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
                     <!-- Comment Count -->
-                    <span class="card-title">{{ song.comment_count }}</span>
+                    <span class="card-title">{{
+                        $tc('song.comment_count', song.comment_count, {
+                            count: song.comment_count
+                        })
+                    }}</span>
                     <i class="fa fa-comments float-right text-green-400 text-2xl"></i>
                 </div>
                 <div class="p-6">
@@ -64,23 +69,23 @@
                     </select>
                 </div>
             </div>
-        </section  >
+        </section>
         <!-- Comments -->
         <ul class="container mx-auto">
-        <li
-            class="p-6 bg-gray-50 border border-gray-200"
-            v-for="comment in sortedComments"
-            :key="comment.docID"
-        >
-            <!-- Comment Author -->
-            <div class="mb-5">
-                <div class="font-bold">{{ comment.name }}</div>
-                <time>{{ comment.datePosted }}</time>
-            </div>
+            <li
+                class="p-6 bg-gray-50 border border-gray-200"
+                v-for="comment in sortedComments"
+                :key="comment.docID"
+            >
+                <!-- Comment Author -->
+                <div class="mb-5">
+                    <div class="font-bold">{{ comment.name }}</div>
+                    <time>{{ comment.datePosted }}</time>
+                </div>
 
-            <p>{{ comment.content }}</p>
-        </li>
-    </ul>
+                <p>{{ comment.content }}</p>
+            </li>
+        </ul>
     </main>
 </template>
 <script>

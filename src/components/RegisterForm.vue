@@ -93,7 +93,9 @@
                 class="w-4 h-4 float-left -ml-6 mt-1 rounded"
             />
             <ErrorMessage class="text-red-600 block" name="tos" />
-            <label class="inline-block">Accept terms of service</label>
+            <i18n-t class="inline-block" keypath="register.accept" tag="label">
+                <a href="#">{{ $t('register.tos') }}</a>
+            </i18n-t>
         </div>
         <button
             type="submit"
@@ -143,14 +145,13 @@ export default {
             this.reg_alert_msg = 'Please wait! Your account is being created.';
 
             try {
-                await this.createUser(values)
+                await this.createUser(values);
             } catch (error) {
                 this.reg_in_submission = false;
                 this.reg_alert_variant = 'bg-red-500';
                 this.reg_alert_msg = 'Error. Try again later';
                 return;
             }
-
 
             this.reg_alert_variant = 'bg-green-500';
             this.reg_alert_msg = 'Success! Your account has been created.';
